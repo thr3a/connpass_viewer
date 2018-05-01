@@ -14,35 +14,27 @@ import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-open class MyAsyncTask : AsyncTask<Void, Void, String>() {
-    override fun doInBackground(vararg p0: Void?): String? {
-        return null
-    }
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-    }
-}
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var myAdapter : CustomAdapter
-    private var list = arrayListOf<CustomItem>()
+    private var eventList = arrayListOf<CustomItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        myAdapter = CustomAdapter(this, list)
+        myAdapter = CustomAdapter(this, eventList)
         MyAsyncTask().execute()
     }
 
     inner class MyAsyncTask: AsyncTask<Void, Void, String>() {
+
         override fun doInBackground(vararg p0: Void?): String {
             return getHtml()
         }
 
         override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val adapter = moshi.adapter(Events::class.java)
 
@@ -51,14 +43,16 @@ class MainActivity : AppCompatActivity() {
             if (res != null) {
 
                 res.events.forEach{ event ->
-                    val a = CustomItem(event.title)
-                    list.add(a)
+                    val item = CustomItem(event.title)
+                    eventList.add(item)
                 }
-                var lv = findViewById(R.id.eventList) as ListView
+                var lv = findViewById<ListView>(R.id.eventList)
                 lv.adapter = myAdapter
             }
         }
     }
+
+
 
 }
 
