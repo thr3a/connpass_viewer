@@ -1,5 +1,8 @@
 package com.example.thr3a.compassapisample
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 data class Events(
         val results_returned: Int,
         val events: List<Event>,
@@ -29,7 +32,14 @@ data class Event(
         val accepted: Int,
         val ended_at: String,
         val place: String
-)
+) {
+    fun date2():String {
+        val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
+        val df2 = SimpleDateFormat("MM/dd")
+        val dt = df1.parse(this.started_at)
+        return df2.format(dt)
+    }
+}
 
 data class Series(
         val url: String,

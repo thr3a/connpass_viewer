@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 class MainActivity : AppCompatActivity() {
 
     private lateinit var myAdapter : CustomAdapter
-    private var eventList = arrayListOf<CustomItem>()
+    private var eventList = ArrayList<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity() {
             if (res != null) {
 
                 res.events.forEach{ event ->
-                    val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
-                    val df2 = SimpleDateFormat("MM/dd")
-                    val dt = df1.parse(event.started_at)
+//                    val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
+//                    val df2 = SimpleDateFormat("MM/dd")
+//                    val dt = df1.parse(event.started_at)
 
-                    val item = CustomItem(df2.format(dt))
+//                    val item = CustomItem("11111", df2.format(dt))
 
-                    eventList.add(item)
+                    eventList.add(event)
                 }
                 var lv = findViewById<ListView>(R.id.eventList)
                 lv.adapter = myAdapter
