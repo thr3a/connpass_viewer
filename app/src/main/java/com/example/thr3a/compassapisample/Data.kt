@@ -1,5 +1,7 @@
 package com.example.thr3a.compassapisample
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -10,7 +12,8 @@ data class Events(
         val results_available: Int
 )
 
-data class Event(
+@Parcelize
+data class Event (
         val event_url: String,
         val event_type: String,
         val owner_nickname: String,
@@ -32,7 +35,7 @@ data class Event(
         val accepted: Int,
         val ended_at: String,
         val place: String
-) {
+): Parcelable {
     fun date2():String {
         val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
         val df2 = SimpleDateFormat("MM/dd")
@@ -41,8 +44,9 @@ data class Event(
     }
 }
 
+@Parcelize
 data class Series(
         val url: String,
         val id: Int,
         val title: String
-)
+): Parcelable

@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
         myAdapter = CustomAdapter(this, eventList)
         MyAsyncTask().execute()
         findViewById<ListView>(R.id.eventList).setOnItemClickListener {parent, view, position, id ->
-            Log.i("nyaa", position.toString())
+            val event = eventList.get(position)
             val intent: Intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("event", event)
             startActivityForResult(intent, 0)
         }
     }
