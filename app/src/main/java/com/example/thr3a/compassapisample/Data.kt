@@ -17,7 +17,7 @@ data class Event(
         val series: Series,
         val updated_at: String,
         val lat: String,
-        val started_at: String,
+        var started_at: String,
         val hash_tag: String,
         val title: String,
         val event_id: Int,

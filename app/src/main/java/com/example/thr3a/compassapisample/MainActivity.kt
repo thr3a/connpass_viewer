@@ -1,20 +1,15 @@
 package com.example.thr3a.compassapisample
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
+import android.util.Log
 import android.widget.ListView
-import android.widget.TextView
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.text.SimpleDateFormat
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +22,11 @@ class MainActivity : AppCompatActivity() {
 
         myAdapter = CustomAdapter(this, eventList)
         MyAsyncTask().execute()
+        findViewById<ListView>(R.id.eventList).setOnItemClickListener {parent, view, position, id ->
+            Log.i("nyaa", position.toString())
+            val intent: Intent = Intent(this, DetailActivity::class.java)
+            startActivityForResult(intent, 0)
+        }
     }
 
     inner class MyAsyncTask: AsyncTask<Void, Void, String>() {
@@ -45,12 +45,6 @@ class MainActivity : AppCompatActivity() {
             if (res != null) {
 
                 res.events.forEach{ event ->
-//                    val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
-//                    val df2 = SimpleDateFormat("MM/dd")
-//                    val dt = df1.parse(event.started_at)
-
-//                    val item = CustomItem("11111", df2.format(dt))
-
                     eventList.add(event)
                 }
                 var lv = findViewById<ListView>(R.id.eventList)
